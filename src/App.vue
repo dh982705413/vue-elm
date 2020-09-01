@@ -1,32 +1,57 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+<script>
+import { mapActions } from 'vuex'
+export default {
+  name: 'app',
+  created() {
+    this.getLoaction()
+  },
+  methods: {
+    getLoaction() {
+      const self = this
+      // eslint-disable-next-line no-undef
+      AMap.plugin('AMap.Geolocation', function() {
+        // eslint-disable-next-line no-undef
+        var geolocation = new AMap.Geolocation({
+          // 是否使用高精度定位，默认：true
+          enableHighAccuracy: true,
+          // 设置定位超时时间，默认：无穷大
+          timeout: 10000
+        })
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+        geolocation.getCurrentPosition()
+        // eslint-disable-next-line no-undef
+        AMap.event.addListener(geolocation, 'complete', onComplete)
+        // eslint-disable-next-line no-undef
+        AMap.event.addListener(geolocation, 'error', onError)
 
-#nav {
-  padding: 30px;
+        function onComplete(data) {
+          // data是具体的定位信息
+          self.setLocation(data)
+          self.setAddress(data.formattedAddress)
+        }
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+        function onError(data) {
+          // 定位出错
+          console.log(data)
+        }
+      })
+    },
+    ...mapActions(['setLocation', 'setAddress'])
   }
+}
+</script>
+<style lang="scss">
+@import './assets/scss/enter';
+@import './assets/scss/_var';
+#app {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  background-color: $bgcolor;
 }
 </style>

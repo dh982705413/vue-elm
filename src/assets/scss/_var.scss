@@ -1,0 +1,33 @@
+$themeColor: #4d90fe; //! 主题色
+$baseColor: #fff;
+$bgcolor: #f1f1f1; //? app首页背景颜色
+//* login组件
+$Login: (
+  'BgColor': $baseColor,
+  'DesText': #aaa,
+  'UserKnow': $themeColor,
+  'BtnColor': #48ca38,
+  'btnText': $baseColor,
+  'disableBtn:': #8bda81
+);
+
+//* InputGroup组件
+$inputGroup: (
+  'inputBorderColor': #ccc,
+  'errorBoderColor': red,
+  'btnBgColor': $baseColor,
+  'btnDisaleColor': #aaa
+);
+
+//* Tabbar组件
+$Tabbar: (
+  'bgcolor': #fafafa,
+  'itemcolor': #999,
+  'active': $themeColor
+);
+
+//* Home组件
+$Home: ();
+
+//* Header组件
+$Header: ();

@@ -1,22 +1,42 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    component: () => import('@/views/Index'),
+    redirect: '/home',
+    children: [
+      { path: '/home', name: 'home', component: () => import('@/views/Home') },
+      {
+        path: '/order',
+        name: 'order',
+        component: () => import('@/views/Order')
+      },
+      { path: '/me', name: 'me', component: () => import('@/views/Me') }
+    ]
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/Login')
+  },
+  {
+    path: '/address',
+    name: 'address',
+    component: () => import('@/views/AddressChange')
+  },
+  {
+    path: '/city',
+    name: 'city',
+    component: () => import('@/views/City')
+  },
+  {
+    path: '*',
+    name: 'notfound',
+    component: () => import('@/404')
   }
 ]
 
@@ -24,6 +44,16 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+// ? 路由守卫
+router.beforeEach((to, from, next) => {
+  const isLogin = !!localStorage.ele_login
+  if (to.path === '/login') {
+    next()
+  } else {
+    isLogin ? next() : next('/login')
+  }
 })
 
 export default router

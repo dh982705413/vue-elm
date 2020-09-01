@@ -1,0 +1,11 @@
+@mixin flex($jc: start, $alt: start, $dec: row) {
+  display: flex;
+  justify-content: $jc;
+  align-items: $alt;
+  flex-direction: $dec;
+}
+
+@mixin inputInit() {
+  border: none;
+  outline: none;
+}
