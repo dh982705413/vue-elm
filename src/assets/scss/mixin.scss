@@ -1,4 +1,4 @@
-@mixin flex($jc: start, $alt: start, $dec: row) {
+@mixin flex($jc: flex-start, $alt: flex-start, $dec: row) {
   display: flex;
   justify-content: $jc;
   align-items: $alt;

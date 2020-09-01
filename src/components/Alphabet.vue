@@ -90,7 +90,7 @@ export default {
         color: #aaa;
       }
       .hot-city {
-        @include flex(space-around, start, row);
+        @include flex(space-around, flex-start, row);
         flex-wrap: wrap;
         width: 240px;
         margin: 10px;
@@ -125,7 +125,7 @@ export default {
     position: fixed;
     top: 32%;
     right: 5px;
-    @include flex(start, center, column);
+    @include flex(flex-start, center, column);
     li {
       color: #aaa;
       font-size: 12px;
