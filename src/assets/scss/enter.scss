@@ -1,1 +1,5 @@
 @import './reset';
+.mint-loadmore {
+  height: calc(100%-95px);
+  overflow: hidden;
+}

@@ -1,6 +1,10 @@
 <template>
   <div class="address-change">
-    <elm-header title="选取收货地址" :isLeft="true"></elm-header>
+    <elm-header
+      title="选取收货地址"
+      :isLeft="true"
+      @go="$router.push('/home')"
+    ></elm-header>
     <div class="city-search">
       <div class="search">
         <span class="city" @click="$router.push('/city')">

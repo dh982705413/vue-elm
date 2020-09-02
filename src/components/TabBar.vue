@@ -33,7 +33,7 @@ export default {
   width: 100%;
   height: 45px;
   bottom: 0;
-  z-index: 999;
+  z-index: 2;
   background-image: linear-gradient(
     180deg,
     #d9d9d9,
