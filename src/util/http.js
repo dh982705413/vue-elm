@@ -21,6 +21,7 @@ http.interceptors.response.use(
     return res.data
   },
   error => {
+    Indicator.close()
     return Promise.reject(error)
   }
 )

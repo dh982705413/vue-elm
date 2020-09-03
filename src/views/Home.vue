@@ -68,6 +68,7 @@ import { mapGetters } from 'vuex'
 import { Swipe, SwipeItem, Loadmore } from 'mint-ui'
 import FilterView from '@/components/FilterView'
 import IndexShop from '@/components/IndexShop'
+
 export default {
   name: 'home',
   components: {

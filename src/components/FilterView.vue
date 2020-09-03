@@ -180,7 +180,6 @@ export default {
 .filter-view {
   position: sticky;
   top: 54px;
-  z-index: 20;
   .filter {
     display: flex;
     text-align: center;
