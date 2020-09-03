@@ -28,6 +28,7 @@
       :result="result"
       v-if="empty || !showShop"
       @click="showItemClick"
+      @goshop="$router.push('/shop')"
     ></search-index>
     <filter-view
       :filterData="filterData"

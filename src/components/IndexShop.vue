@@ -1,9 +1,9 @@
 <template>
   <div class="index-shop">
-    <div class="index-shopInfo">
+    <div class="index-shopInfo" @click="$router.push('/shop')">
       <!-- 左侧图片 -->
       <div class="logo-container">
-        <img :src="restaurant.image_path" alt="" />
+        <img v-lazy="restaurant.image_path" alt="" />
       </div>
       <!-- 右侧内容 -->
       <div class="index-main">

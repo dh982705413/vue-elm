@@ -19,7 +19,7 @@
     <div class="container">
       <swipe :auto="4000" class="swipe">
         <swipe-item v-for="(item, index) in swipeImgs" :key="index">
-          <img :src="item" alt="" />
+          <img v-lazy="item" alt="" />
         </swipe-item>
       </swipe>
       <swipe :auto="0" class="category-swipe">
@@ -30,7 +30,7 @@
               :key="index"
               class="category-item"
             >
-              <img :src="category.image" alt="" />
+              <img v-lazy="category.image" alt="" />
               <span>{{ category.name }}</span>
             </li>
           </ul>
@@ -116,7 +116,6 @@ export default {
       this.showFilter = isShow
     },
     update(condation) {
-      console.log(condation)
       this.updataData = condation
       this.loadData()
     },

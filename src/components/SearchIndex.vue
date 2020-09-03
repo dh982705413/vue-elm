@@ -5,7 +5,7 @@
         class="restaurants"
         v-for="(item, index) in result.restaurants"
         :key="index"
-        @click="$emit('click')"
+        @click="$emit('goshop')"
       >
         <img :src="item.image_path" alt="" />
         <div class="info">
