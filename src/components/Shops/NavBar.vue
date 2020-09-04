@@ -1,42 +1,44 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" :class="{ 'is-fixed': isFixed }">
     <div class="tabs">
-      <button
+      <router-link
         v-for="(tab, index) in tabs"
         :key="index"
-        @click="currentTabComponent = tab.component"
-        :class="{ 'is-active': currentTabComponent === tab.component }"
+        :to="tab.path"
+        tag="button"
+        :class="{ 'is-active': $route.path === tab.path }"
       >
         {{ tab.name }}
-      </button>
+      </router-link>
     </div>
-    <keep-alive>
-      <component v-bind:is="currentTabComponent"></component>
-    </keep-alive>
   </div>
 </template>
 
 <script>
-import Goods from '@/components/Shops/Goods'
-import Comments from '@/components/Shops/Comments'
-import Seller from '@/components/Shops/Seller'
 export default {
   name: 'navbar',
-  components: {
-    Goods,
-    Comments,
-    Seller
-  },
   data() {
     return {
       currentTab: '点播',
       tabs: [
-        { name: '点播', component: 'Goods' },
-        { name: '评论', component: 'Comments' },
-        { name: '商家', component: 'Seller' }
+        { name: '点播', path: '/goods' },
+        { name: '评论', path: '/comments' },
+        { name: '商家', path: '/seller' }
       ],
-      currentTabComponent: 'Goods'
+      isFixed: false
     }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.initHeight)
+  },
+  methods: {
+    initHeight() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      this.isFixed = scrollTop > 254
+    }
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.initHeight)
   }
 }
 </script>
@@ -61,5 +63,10 @@ export default {
       border-bottom: 2px solid #4d90fe;
     }
   }
+}
+.is-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 </style>

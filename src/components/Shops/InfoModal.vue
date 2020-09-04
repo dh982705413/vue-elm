@@ -67,6 +67,7 @@ export default {
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
   }
   .brief-modal {
     position: absolute;
@@ -77,6 +78,7 @@ export default {
     border-radius: 5px;
     padding: 10px;
     transform: translate(-50%, -50%);
+    z-index: 999;
     h2 {
       width: 90%;
       margin: 0 auto;
@@ -143,6 +145,7 @@ export default {
     bottom: 30%;
     transform: translate(-50%, -50%);
     text-align: center;
+    z-index: 999;
     img {
       width: 80%;
     }
@@ -154,6 +157,6 @@ export default {
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition:opacity 0.5s;
+  transition: opacity 0.5s;
 }
 </style>

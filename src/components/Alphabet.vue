@@ -64,7 +64,8 @@ export default {
   methods: {
     initScroll() {
       this.scroll = new BScroll(this.$refs.wrapper, {
-        click: true
+        click: true,
+        probeType: 3
       })
     },
     selectKey(key) {

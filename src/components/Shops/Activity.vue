@@ -76,14 +76,16 @@ export default {
       top: 0;
       left: 0;
       background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9;
     }
     .act-modal {
-      position: absolute;
+      position: fixed;
       width: 100%;
       height: 45%;
       bottom: 0;
       left: 0;
       background-color: #fff;
+      z-index: 99;
       h1 {
         text-align: center;
         font-size: 1.2rem;

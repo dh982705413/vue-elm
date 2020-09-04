@@ -42,6 +42,7 @@
     </div>
     <!-- navBar -->
     <nav-bar></nav-bar>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -70,7 +71,6 @@ export default {
     async getData() {
       const res = await this.$http.get('/profile/batch_shop')
       this.shopInfo = res
-      console.log(res)
     }
   }
 }
@@ -79,6 +79,7 @@ export default {
 <style lang="scss" scoped>
 .shop {
   width: 100%;
+  height: 100%;
   .header-nav {
     .nav-bg {
       img {
