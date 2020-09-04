@@ -40,8 +40,8 @@ const routes = [
   },
   {
     path: '/shop',
-    name: 'shop',
     component: () => import('@/views/Shops/Shop'),
+    redirect: '/goods',
     children: [
       {
         path: '/goods',

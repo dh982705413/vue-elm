@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <!-- <transition name="fade"> -->
     <div class="info" v-show="isShow">
       <div class="mark" @click="$emit('close')"></div>
       <div class="brief-modal">
@@ -41,7 +41,7 @@
         />
       </div>
     </div>
-  </transition>
+  <!-- </transition> -->
 </template>
 
 <script>
@@ -70,7 +70,7 @@ export default {
     z-index: 99;
   }
   .brief-modal {
-    position: absolute;
+    position: fixed;
     width: 80%;
     top: 40%;
     left: 50%;
@@ -140,7 +140,7 @@ export default {
     }
   }
   .brief-modal-close {
-    position: absolute;
+    position: fixed;
     left: 50%;
     bottom: 30%;
     transform: translate(-50%, -50%);

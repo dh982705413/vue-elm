@@ -120,7 +120,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 table {
@@ -156,4 +156,7 @@ a {
   width: 100%;
   text-align: center;
   position: absolute;
+}
+::webkit-scrollbar {
+  display: none !important;
 }

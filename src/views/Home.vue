@@ -1,36 +1,40 @@
 <template>
   <div class="home">
     <div class="header">
-      <div
-        class="address_map"
-        @click="$router.push({ name: 'address', params: { city } })"
-      >
+      <div class="address_map"
+           @click="$router.push({ name: 'address', params: { city } })">
         <i class="fa fa-map-marker"></i>
         <span>{{ address ? address : '正在获取' }}</span>
         <i class="fa fa-sort-desc"></i>
       </div>
     </div>
-    <div class="shop_search-wrap" :class="{ fixedview: showFilter }">
-      <div class="shop_search" @click="$router.push('/search')">
+    <div class="shop_search-wrap"
+         :class="{ fixedview: showFilter }">
+      <div class="shop_search"
+           @click="$router.push('/search')">
         <i class="fa fa-search"></i>
         搜索商家 商家名称
       </div>
     </div>
     <div class="container">
-      <swipe :auto="4000" class="swipe">
-        <swipe-item v-for="(item, index) in swipeImgs" :key="index">
-          <img v-lazy="item" alt="" />
+      <swipe :auto="4000"
+             class="swipe">
+        <swipe-item v-for="(item, index) in swipeImgs"
+                    :key="index">
+          <img v-lazy="item"
+               alt="" />
         </swipe-item>
       </swipe>
-      <swipe :auto="0" class="category-swipe">
-        <swipe-item v-for="(item, index) in entries" :key="index">
+      <swipe :auto="0"
+             class="category-swipe">
+        <swipe-item v-for="(item, index) in entries"
+                    :key="index">
           <ul class="category-list">
-            <li
-              v-for="(category, index) in item"
-              :key="index"
-              class="category-item"
-            >
-              <img v-lazy="category.image" alt="" />
+            <li v-for="(category, index) in item"
+                :key="index"
+                class="category-item">
+              <img v-lazy="category.image"
+                   alt="" />
               <span>{{ category.name }}</span>
             </li>
           </ul>
@@ -40,25 +44,19 @@
     <!-- 推荐商家 -->
     <div class="shoplist-title">推荐商家</div>
     <!-- 导航 -->
-    <filter-view
-      :filterData="filterData"
-      @searchFiexd="showFilterView"
-      @updata="update"
-    ></filter-view>
+    <filter-view :filterData="filterData"
+                 @searchFiexd="showFilterView"
+                 @updata="update"></filter-view>
     <!-- 商家信息 -->
-    <loadmore
-      :top-method="loadData"
-      :bottom-method="loadMore"
-      :bottom-all-loaded="allLoaded"
-      :auto-fill="false"
-      :bottomPullText="bottomPullText"
-      ref="loadmore"
-    >
-      <index-shop
-        v-for="(item, index) in restaurants"
-        :key="index"
-        :restaurant="item.restaurant"
-      ></index-shop>
+    <loadmore :top-method="loadData"
+              :bottom-method="loadMore"
+              :bottom-all-loaded="allLoaded"
+              :auto-fill="false"
+              :bottomPullText="bottomPullText"
+              ref="loadmore">
+      <index-shop v-for="(item, index) in restaurants"
+                  :key="index"
+                  :restaurant="item.restaurant"></index-shop>
     </loadmore>
   </div>
 </template>
@@ -81,10 +79,10 @@ export default {
   computed: {
     ...mapGetters(['address', 'city'])
   },
-  created() {
+  created () {
     this.getData()
   },
-  data() {
+  data () {
     return {
       swipeImgs: [],
       entries: [],
@@ -101,7 +99,7 @@ export default {
     }
   },
   methods: {
-    async getData() {
+    async getData () {
       const res = await this.$http.get('/profile/shopping')
       this.swipeImgs = res.swipeImgs
       this.entries = res.entries
@@ -112,14 +110,14 @@ export default {
       // ? 拉取商家信息
       this.loadData()
     },
-    showFilterView(isShow) {
+    showFilterView (isShow) {
       this.showFilter = isShow
     },
-    update(condation) {
+    update (condation) {
       this.updataData = condation
       this.loadData()
     },
-    async loadData() {
+    async loadData () {
       this.page = 1
       this.allLoaded = false
       this.bottomPullText = '上拉加载更多'
@@ -130,7 +128,7 @@ export default {
       this.restaurants = restaurants
       this.$refs.loadmore.onTopLoaded()
     },
-    async loadMore() {
+    async loadMore () {
       if (!this.allLoaded) {
         this.page++
         const restaurants = await this.$http.post(

@@ -8,7 +8,11 @@
     >
       <p class="recommend-name">{{ recommend.name }}</p>
       <ul class="recommend-wrap">
-        <li v-for="(item, index) in recommend.items" :key="index">
+        <li
+          v-for="(item, index) in recommend.items"
+          :key="index"
+          @click="handleFood(item)"
+        >
           <img v-lazy="item.image_path" alt="" />
           <div class="recommend-food">
             <p class="recommend-food-name">{{ item.name }}</p>
@@ -53,7 +57,12 @@
               <span>{{ item.description }}</span>
             </div>
             <!-- 内容下 -->
-            <div class="food-detail" v-for="(food, i) in item.foods" :key="i">
+            <div
+              class="food-detail"
+              v-for="(food, i) in item.foods"
+              :key="i"
+              @click="handleFood(food)"
+            >
               <img :src="food.image_path" alt="" />
               <section class="food-detail-info">
                 <h4>{{ food.name }}</h4>
@@ -71,16 +80,29 @@
         </ul>
       </div>
     </div>
+    <!-- 购物车 -->
+    <shop-cart :shopInfo="shopInfo"></shop-cart>
+    <!-- 商品详情 -->
+    <food
+      :food="selectFood"
+      :isShow="isShowDetail"
+      @close="isShowDetail = false"
+    ></food>
   </div>
 </template>
 
 <script>
 import CartControll from '@/components/Shops/CartControll'
 import BScroll from 'better-scroll'
+import ShopCart from '@/views/Shops/ShopCart'
+import Food from '@/views/Shops/Food'
+
 export default {
   name: 'goods',
   components: {
-    CartControll
+    CartControll,
+    ShopCart,
+    Food
   },
   created() {
     this.getData()
@@ -91,7 +113,9 @@ export default {
       menuScroll: null,
       foodScroll: null,
       scrollY: 0, // ? 右侧菜单当前滚动到的y值
-      listHeight: []
+      listHeight: [],
+      selectFood: null,
+      isShowDetail: false
     }
   },
   computed: {
@@ -156,6 +180,10 @@ export default {
       const el = foodlist[index]
       this.currentIndex = index
       this.foodScroll.scrollToElement(el, 250)
+    },
+    handleFood(item) {
+      this.selectFood = item
+      this.isShowDetail = true
     }
   }
 }
