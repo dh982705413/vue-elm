@@ -61,6 +61,16 @@ const routes = [
     ]
   },
   {
+    path: '/myAddress',
+    name: 'myAddress',
+    component: () => import('@/views/Orders/MyAddress')
+  },
+  {
+    path: '/addAddress',
+    name: 'addAddress',
+    component: () => import('@/views/Orders/AddAddress')
+  },
+  {
     path: '*',
     name: 'notfound',
     component: () => import('@/404')
@@ -76,7 +86,7 @@ const router = new VueRouter({
 // ? 路由守卫
 router.beforeEach((to, from, next) => {
   const isLogin = !!localStorage.ele_login
-  if (to.path === '/login') {
+  if (to.path === '/login' || to.path === '/me' || to.path === '/home') {
     next()
   } else {
     isLogin ? next() : next('/login')

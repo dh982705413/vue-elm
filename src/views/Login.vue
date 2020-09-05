@@ -70,7 +70,7 @@ export default {
           code: this.verifyCode
         })
         console.log(res)
-        localStorage.setItem('ele_login', true)
+        localStorage.setItem('ele_login', res.user._id)
         this.$router.push('/')
       } catch (err) {
         this.errors = {

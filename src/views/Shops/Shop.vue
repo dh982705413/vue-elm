@@ -42,7 +42,9 @@
     </div>
     <!-- navBar -->
     <nav-bar></nav-bar>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
