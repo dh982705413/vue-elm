@@ -39,6 +39,37 @@
           <span v-if="item.count > 0">{{ item.count }}</span>
         </li>
       </ul>
+      <!-- 内容 -->
+      <ul class="comments-wrap">
+        <li v-for="(item, index) in evaluation.comments" :key="index">
+          <div class="comment-user">
+            <div class="comment-info">
+              <img
+                :src="
+                  item.avatar ||
+                    ' https://fuss10.elemecdn.com/2/e1/71fce8fcf471aa29bbdf9748a5bfajpeg.jpeg'
+                "
+                alt=""
+              />
+              <div class="comment-name">
+                <h4>{{ item.username }}</h4>
+                <rating :rating="item.rating"></rating>
+                <span :style="{ color: ratingcontent(item.rating).color }">{{
+                  ratingcontent(item.rating).txt
+                }}</span>
+              </div>
+              <small>{{ item.rated_at }}</small>
+            </div>
+          </div>
+          <div class="comment-text">{{ item.comment_text }}</div>
+          <div class="comment-reply">{{ item.reply.content }}</div>
+          <ul class="comment-imgs">
+            <li v-for="(img, i) in item.order_images" :key="i">
+              <img :src="img.image_hash" alt="" />
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -63,6 +94,16 @@ export default {
       const res = await this.$http.get('/profile/comments')
       this.evaluation = res
       console.log(res)
+    },
+    ratingcontent(rating) {
+      const content = [
+        { txt: '吐槽', color: 'rgb(137,159,188)' },
+        { txt: '较差', color: 'rgb(137, 159, 188)' },
+        { txt: '一般', color: 'rgb(251, 154, 11)' },
+        { txt: '满意', color: 'rgb(251, 154, 11)' },
+        { txt: '超赞', color: 'rgb(255, 96, 0)' }
+      ]
+      return content[rating - 1]
     }
   }
 }
@@ -127,7 +168,7 @@ export default {
       display: flex;
       flex-wrap: wrap;
       padding: 10px 5px;
-
+      border-bottom: 1px solid #eee;
       li {
         color: #6d7885;
         background-color: #ebf5ff;
@@ -145,6 +186,60 @@ export default {
       .unsatisfied {
         color: #aaa !important;
         background-color: #f5f5f5 !important;
+      }
+    }
+    .comments-wrap {
+      width: 100%;
+      li {
+        padding: 20px 10px;
+        border-bottom: 1px solid #eee;
+        .comment-user {
+          width: 100%;
+        }
+        .comment-info {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+          .comment-name {
+            flex: 1;
+          }
+        }
+        .comment-text {
+          color: #333;
+          word-break: break-word;
+          margin: 2.133333vw 0;
+        }
+        .comment-reply {
+          margin: 2.666667vw 0;
+          padding: 2.666667vw;
+          border-radius: 1.066667vw;
+          background: #f3f3f3;
+          position: relative;
+          font-size: 0.8rem;
+          &::after {
+            position: absolute;
+            content: ' ';
+            top: -30px;
+            left: 60px;
+            border: 15px solid #f3f3f3;
+            border-color: transparent transparent #f3f3f3 transparent;
+          }
+        }
+        .comment-imgs {
+          li {
+            border: none;
+            img {
+              width: 40vw;
+              height: 40vw;
+            }
+          }
+        }
       }
     }
   }
