@@ -87,8 +87,14 @@ export default {
     }
   },
   created() {
-    console.log(this.$route)
-    this.addresInfo = this.$route.params.address || {}
+    this.addresInfo = this.$route.params.address || {
+      tag: '',
+      sex: '',
+      address: '',
+      phone: '',
+      name: '',
+      bottom: ''
+    }
   },
   methods: {
     checkTag(tag) {
@@ -134,7 +140,12 @@ export default {
           this.addresInfo
         )
         this.showMsg('添加成功')
-        this.$router.push('/myAddress')
+        if (!this.$store.getters.userInfo) {
+          this.$store.dispatch('setUserInfo', this.addresInfo)
+          this.$router.push('/settlement')
+        } else {
+          this.$router.push('/myAddress')
+        }
       } catch {
         this.showMsg('添加失败')
       }

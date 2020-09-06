@@ -71,6 +71,11 @@ const routes = [
     component: () => import('@/views/Orders/AddAddress')
   },
   {
+    path: '/settlement',
+    name: 'settlement',
+    component: () => import('@/views/Orders/Settlement')
+  },
+  {
     path: '*',
     name: 'notfound',
     component: () => import('@/404')

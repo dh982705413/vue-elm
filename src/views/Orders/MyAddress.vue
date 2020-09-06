@@ -7,7 +7,18 @@
     ></elm-header>
     <!-- 地址列表 -->
     <ul class="address-list-wrap">
-      <li class="address-wrap" v-for="(item, index) in address" :key="index">
+      <li
+        class="address-wrap"
+        v-for="(item, index) in address"
+        :key="index"
+        @click.stop="selectAddress(index, item)"
+      >
+        <div
+          class="address-select"
+          :class="{ 'is-select': selectIndex === index }"
+        >
+          <i class="fa fa-check-circle"></i>
+        </div>
         <div class="info">
           <div class="addaress-card-body">
             <span class="username">{{ item.name }}</span>
@@ -20,8 +31,8 @@
           </div>
         </div>
         <div class="address-edit">
-          <i class="fa fa-edit" @click="handleEdit(item)"></i>
-          <i class="fa fa-close" @click="handleDelete(item)"></i>
+          <i class="fa fa-edit" @click.stop="handleEdit(item)"></i>
+          <i class="fa fa-close" @click.stop="handleDelete(item, index)"></i>
         </div>
       </li>
     </ul>
@@ -44,11 +55,17 @@ export default {
   },
   data() {
     return {
-      address: []
+      address: [],
+      selectIndex: 0
     }
   },
   created() {
     this.getData()
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.getData()
+    })
   },
   methods: {
     async getData() {
@@ -63,18 +80,25 @@ export default {
         params: { address, edit: true }
       })
     },
-    async handleDelete(address) {
+    selectAddress(index, address) {
+      this.selectIndex = index
+      // 将address对象存储到vuex
+      this.$store.dispatch('setUserInfo', address)
+      this.$router.push('/settlement')
+    },
+    async handleDelete(address, index) {
       const res = await MessageBox.confirm('确定删除此地址?')
       if (res === 'confirm') {
         await this.$http.delete(
           `/user/address/${localStorage.ele_login}/${address._id}`
         )
+        this.address.splice(index, 1)
+        this.selectIndex = 0
         Toast({
           message: '删除成功',
           position: 'bottom',
           duration: 1000
         })
-        this.getData()
       }
     }
   }
@@ -112,6 +136,14 @@ export default {
       background-color: #fff;
       padding: 20px;
       border-bottom: 1px solid #eee;
+      .address-select {
+        font-size: 1.3rem;
+        text-align: center;
+        margin-right: 10px;
+      }
+      .is-select {
+        color: #4cd964;
+      }
       .info {
         flex: 1;
         .addaress-card-body {
