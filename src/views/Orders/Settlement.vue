@@ -43,10 +43,21 @@
         <!-- 点餐内容 end-->
         <!-- 备注信息 -->
         <section class="checkout-section">
-          <cart-item title="餐具份数" subTitle="未选择"></cart-item>
+          <cart-item
+            title="餐具份数"
+            :subTitle="Tableware"
+            @click="showTableware = true"
+          ></cart-item>
           <cart-item title="订单备注" subTitle="口味 偏好"></cart-item>
           <cart-item title="发票信息" subTitle="不需要开发票"></cart-item>
         </section>
+        <!-- 餐具 -->
+        <table-ware
+          :isShow="showTableware"
+          @close="showTableware = false"
+          @check="checkTableware"
+        ></table-ware>
+        <!-- 餐具 end-->
       </div>
     </div>
   </div>
@@ -57,6 +68,7 @@ import ElmHeader from '@/components/ElmHeader'
 import Delivery from '@/components/Orders/Delivery'
 import CartGroup from '@/components/Orders/CartGroup'
 import CartItem from '@/components/Orders/CartItem'
+import TableWare from '@/components/Orders/TableWare'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Settlement',
@@ -64,11 +76,14 @@ export default {
     ElmHeader,
     Delivery,
     CartGroup,
-    CartItem
+    CartItem,
+    TableWare
   },
   data() {
     return {
-      haveAddress: false
+      haveAddress: false,
+      showTableware: false,
+      Tableware: '未选择'
     }
   },
   computed: {
@@ -100,6 +115,11 @@ export default {
       } else {
         this.haveAddress = false
       }
+    },
+    checkTableware(item) {
+      this.TableCheck = item
+      this.Tableware = item + '份'
+      this.showTableware = false
     }
   }
 }
